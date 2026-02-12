@@ -14,7 +14,7 @@ A modern fullstack web application template with a React frontend and Express.js
 1. **Clone and navigate to the project:**
 
    ```bash
-   cd fullstack_12hr_template
+   cd "Nura Space Challenge"
    ```
 
 2. **Install dependencies for both client and server:**

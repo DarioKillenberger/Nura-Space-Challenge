@@ -67,9 +67,15 @@ export function Login() {
 
               <Alert variant="info" className="mb-0">
                 <small>
-                  <strong>Demo Credentials:</strong><br />
+                  <strong>Demo Credentials 1:</strong><br />
                   Email: demo@example.com<br />
                   Password: password123
+                </small>
+                <br /><br />
+                <small>
+                  <strong>Demo Credentials 2:</strong><br />
+                  Email: demo2@example.com<br />
+                  Password: password321
                 </small>
               </Alert>
             </Card.Body>

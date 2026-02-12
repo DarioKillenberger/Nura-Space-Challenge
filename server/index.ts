@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routers/auth";
 import { weatherRouter, userCityRouter } from "./routers/weather";
 import { requireAuth } from "./middleware/auth";
+import "./services/websocket";
+import { alertsRouter } from "./routers/alerts";
 
 const app = express();
 const port = 3000;
@@ -29,6 +31,7 @@ app.use("/api/auth", authRouter);
 // Weather & user city routes (protected - all require auth)
 app.use("/api/weather", requireAuth, weatherRouter);
 app.use("/api/user-city", requireAuth, userCityRouter);
+app.use("/api/alerts", alertsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

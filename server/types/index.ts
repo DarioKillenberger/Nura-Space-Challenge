@@ -3,3 +3,5 @@ export interface UserCity {
   latitude: number;
   longitude: number;
 }
+
+export const ALERT_TYPES = ["info", "warning", "danger"];

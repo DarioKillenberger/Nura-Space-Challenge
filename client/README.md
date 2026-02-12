@@ -44,3 +44,4 @@ Other packages used:
 
 - Bootstrap
 - https://www.npmjs.com/package/react-bootstrap-typeahead
+- https://nodejs.org/en/learn/getting-started/websocket

@@ -5,12 +5,19 @@ const users = new Map();
 const refreshTokens = new Set();
 const userCities = new Map<string, UserCity>();
 
-// Add demo user
+// Add demo users
 users.set("demo@example.com", {
   id: "1",
   email: "demo@example.com",
   password: "password123", // In production: bcrypt.hash(password)
   name: "Demo User",
+});
+
+users.set("demo2@example.com", {
+  id: "2",
+  email: "demo2@example.com",
+  password: "password321", // In production: bcrypt.hash(password)
+  name: "Second Demo User",
 });
 
 /**

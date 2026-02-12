@@ -8,3 +8,9 @@ export interface CityOption {
   latitude: number;
   longitude: number;
 }
+
+export interface Alert {
+  cityName: string;
+  alertSeverity: string;
+  alertMessage: string;
+}
