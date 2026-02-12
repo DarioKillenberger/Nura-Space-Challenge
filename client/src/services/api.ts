@@ -1,4 +1,5 @@
 import { api } from "./axios";
+import type { CityOption } from "../types";
 
 export const apiService = {
   async getCurrentCity() {
@@ -6,12 +7,12 @@ export const apiService = {
     return response.data;
   },
 
-  async setCurrentCity(cityData: { cityName: string; latitude: number; longitude: number }) {
+  async setCurrentCity(cityData: CityOption) {
     const response = await api.post("/user-city", cityData);
     return response.data;
   },
 
-  async getCitiesAutocomplete(query: string) {
+  async getCitiesAutocomplete(query: string): Promise<CityOption[]> {
     const response = await api.get("/weather/cities-autocomplete", {
       params: { query },
     });
@@ -20,6 +21,7 @@ export const apiService = {
 
   async getWeather() {
     const response = await api.get("/weather");
+    console.log("getWeather response:", response.data);
     return response.data;
   },
 };

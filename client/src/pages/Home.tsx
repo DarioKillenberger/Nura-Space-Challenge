@@ -3,23 +3,25 @@ import { apiService } from "../services/api";
 import { CitySelector } from "../components/CitySelector";
 import { useAuth } from "../contexts/AuthContext";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import type { CityOption } from "../types";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { WeatherForecast } from "../components/WeatherForecast";
 
 export function HomePage() {
-    const [currentCity, setCurrentCity] = useState<string | null>(null);
+    const [currentCity, setCurrentCity] = useState<CityOption | null>(null);
     const { user, logout } = useAuth();
 
     useEffect(() => {
-        const fetchCity = async () => {
+        const fetchCurrentCity = async () => {
             try {
                 const response = await apiService.getCurrentCity();
-                setCurrentCity(response.cityName);
+                setCurrentCity({ cityName: response.cityName, latitude: response.latitude, longitude: response.longitude } as CityOption);
             } catch (error) {
                 console.error('Error fetching city:', error);
             }
         };
 
-        fetchCity();
+        fetchCurrentCity();
     }, []);
 
     return (
@@ -42,7 +44,11 @@ export function HomePage() {
 
             <Container className="py-4">
                 <CitySelector setCurrentCity={setCurrentCity} />
-                <h2 className="mt-4">Current city: {currentCity}</h2>
+                <h2 className="mt-4">Current city: {currentCity?.cityName || 'No city selected'}</h2>
+            </Container>
+
+            <Container className="py-4">
+                <WeatherForecast currentCity={currentCity} />
             </Container>
         </>
     );

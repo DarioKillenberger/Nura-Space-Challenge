@@ -3,10 +3,8 @@
 export interface ApiResponse {
   message: string;
 }
-
-// Example: User type
-// export interface User {
-//   id: number;
-//   name: string;
-//   email: string;
-// }
+export interface CityOption {
+  cityName: string;
+  latitude: number;
+  longitude: number;
+}

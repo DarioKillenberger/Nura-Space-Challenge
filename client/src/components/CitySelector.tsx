@@ -4,14 +4,9 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+import type { CityOption } from '../types';
 
-interface CityOption {
-  cityName: string;
-  latitude: number;
-  longitude: number;
-}
-
-export function CitySelector({ setCurrentCity }: { setCurrentCity: (city: string) => void }) {
+export function CitySelector({ setCurrentCity }: { setCurrentCity: (city: CityOption) => void }) {
   const [singleSelections, setSingleSelections] = useState<CityOption[]>([]);
   const [options, setOptions] = useState<CityOption[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -42,7 +37,7 @@ export function CitySelector({ setCurrentCity }: { setCurrentCity: (city: string
 
       try {
         await apiService.setCurrentCity(city);
-        setCurrentCity(city.cityName);
+        setCurrentCity(city);
       } catch (error) {
         console.error('Failed to save city:', error);
       }

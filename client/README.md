@@ -42,4 +42,5 @@ The application will be available at **http://localhost:5173** by default.
 
 Other packages used:
 
+- Bootstrap
 - https://www.npmjs.com/package/react-bootstrap-typeahead

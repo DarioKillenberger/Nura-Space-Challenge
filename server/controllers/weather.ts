@@ -24,14 +24,15 @@ const getCitiesAutocomplete = async (req: Request, res: Response) => {
  * GET /api/weather
  * Get weather for user's saved city
  */
-const getWeather = (req: Request, res: Response) => {
+const getCurrentWeather = async (req: Request, res: Response) => {
   const userId = (req as any).user?.id;
 
   if (!userId) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const weather = weatherService.fetchWeatherData(userId);
+  const weather = await weatherService.fetchWeatherData(userId);
+  console.log("getCurrentWeather response:", weather);
   res.json(weather);
 };
 
@@ -82,7 +83,7 @@ const setCurrentCity = (req: Request, res: Response) => {
 
 export default {
   getCitiesAutocomplete,
-  getWeather,
+  getCurrentWeather,
   getCurrentCity,
   setCurrentCity,
 };
