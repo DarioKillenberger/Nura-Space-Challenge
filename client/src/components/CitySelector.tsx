@@ -19,6 +19,7 @@ export function CitySelector({ setCurrentCity }: { setCurrentCity: (city: CityOp
     const fetchCities = async () => {
       try {
         const cities = await apiService.getCitiesAutocomplete(inputValue);
+        // TODO: In future, should probably also show city state and country in the autocomplete options, but this will require API modification that I don't have time for rn
         setOptions(cities);
       } catch (error) {
         console.error('Error fetching cities:', error);

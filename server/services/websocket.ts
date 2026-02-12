@@ -56,7 +56,7 @@ wss.on("connection", (ws: IdentifiedWebSocket) => {
 });
 
 /**
- * Simple broadcast helper used by controllers (e.g. alerts).
+ * Simple broadcast helper used by controllers
  * Sends a JSON-serialised payload to all connected clients.
  */
 function broadcast(payload: unknown) {

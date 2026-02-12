@@ -14,6 +14,7 @@ export function HomePage() {
     const [currentCity, setCurrentCity] = useState<CityOption | null>(null);
     const { user, logout } = useAuth();
     const [alert, setAlert] = useState<Alert>();
+
     // Fetch the current city from the API
     useEffect(() => {
         const fetchCurrentCity = async () => {
@@ -35,6 +36,7 @@ export function HomePage() {
         }
     }, [user]);
 
+    // Listen for messages containing alerts from the websocket
     useEffect(() => {
         const unsubscribe = websocketService.onMessage((event) => {
             // event.data is a string from the server
@@ -58,13 +60,13 @@ export function HomePage() {
                 return;
             }
 
-            const alertMessage: Alert = {
+            const alertData: Alert = {
                 cityName: data.cityName,
                 alertSeverity: data.alertSeverity,
                 alertMessage: data.alertMessage,
             };
-
-            setAlert(alertMessage);
+            setAlert(alertData);
+            // Clear the alert after 10 seconds
             setTimeout(() => {
                 setAlert(undefined);
             }, 10000);

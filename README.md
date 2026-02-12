@@ -1,123 +1,56 @@
-# Fullstack Template
+## Nura Space Challenge
 
-A modern fullstack web application template with a React frontend and Express.js backend, designed to get you up and running in under 12 hours.
+Small full‑stack demo that lets a user log in, pick a city, see current weather, and receive real‑time alerts for that city.
 
-## Quick Start
+### Folder layout
 
-### Prerequisites
+- **client/**: React + TypeScript SPA (login + weather dashboard, WebSocket alerts).
+- **server/**: Express + TypeScript API, JWT auth, WebSocket server, in‑memory user + city storage.
 
-- Node.js (v18 or higher)
-- npm (comes with Node.js)
+### Requirements
 
-### Setup & Run
+- **Node.js** 18+  
+- **npm** (bundled with Node)
 
-1. **Clone and navigate to the project:**
-
-   ```bash
-   cd "Nura Space Challenge"
-   ```
-
-2. **Install dependencies for both client and server:**
-
-   ```bash
-   # Install server dependencies
-   cd server
-   npm install
-
-   # Install client dependencies
-   cd ../client
-   npm install
-   ```
-
-3. **Start the development servers:**
-
-   **Terminal 1 - Start the backend server:**
-
-   ```bash
-   cd server
-   npm run dev
-   ```
-
-   Server will run on http://localhost:3000
-
-   **Terminal 2 - Start the frontend client:**
-
-   ```bash
-   cd client
-   npm run dev
-   ```
-
-   Client will run on http://localhost:5173
-
-4. **Open your browser** and visit http://localhost:5173
-
-## Tech Stack
-
-### Frontend (Client)
-
-- **React 19** - Modern UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Lightning-fast build tool
-- **Axios** - HTTP client for API requests
-- **ESLint** - Code linting and formatting
-
-### Backend (Server)
-
-- **Node.js** - JavaScript runtime
-- **Express.js 5** - Web framework
-- **CORS** - Cross-origin resource sharing
-- **Nodemon** - Auto-restart development server
-
-## API Integration
-
-The client is pre-configured to communicate with the backend server:
-
-- Frontend: `http://localhost:5173`
-- Backend API: `http://localhost:3000`
-
-## Development Workflow
-
-### Adding a New API Endpoint
-
-1. **Server-side** (`server/index.js`):
-
-   ```javascript
-   app.get("/api/users", (req, res) => {
-     res.json({ users: ["Alice", "Bob"] });
-   });
-   ```
-
-2. **Client-side** (use the `useFetch` hook):
-
-   ```typescript
-   import { useFetch } from "./hooks/useFetch";
-
-   function Users() {
-     const { data, loading, error } = useFetch("/users");
-     return <div>{/* render users */}</div>;
-   }
-   ```
-
-### Creating a New Component
-
-1. Create file in `client/src/components/MyComponent.tsx`
-2. Export it from `client/src/components/index.ts`
-3. Import and use: `import { MyComponent } from './components'`
-
-## Building for Production
-
-### Build the client:
+### Setup
 
 ```bash
-cd client
-npm run build
-```
+cd "Nura Space challenge"
 
-Output will be in `client/dist/`
-
-### Run the server in production:
-
-```bash
+# install backend deps
 cd server
-npm start
+npm install
+
+# install frontend deps
+cd ../client
+npm install
 ```
+
+### Run in development
+
+Use two terminals:
+
+```bash
+# Terminal 1 – API + WebSocket server
+cd server
+npm run dev      # HTTP on http://localhost:3000, WS on ws://localhost:8080
+
+# Terminal 2 – React app
+cd client
+npm run dev      # Vite dev server, usually http://localhost:5173
+```
+
+Then open the client URL in your browser.
+
+### Demo accounts
+
+You can log in with either of these:
+
+- **Email**: `demo@example.com`, **Password**: `password123`  
+- **Email**: `demo2@example.com`, **Password**: `password321`
+
+### High‑level architecture
+
+- **Auth**: `/api/auth/*` endpoints issue short‑lived access tokens (JWT in the `Authorization: Bearer` header) and long‑lived refresh tokens stored as httpOnly cookies.
+- **Weather & city**: authenticated user saves a city (`/api/user-city`), then `/api/weather` proxies Open‑Meteo data for that city.
+- **Alerts**: a separate WebSocket server (`ws://localhost:8080`) broadcasts alert messages to connected clients based on their saved city.
